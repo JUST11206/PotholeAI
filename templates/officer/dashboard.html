@@ -1,0 +1,427 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="officer-dashboard">
+
+<!-- HEADER -->
+<section class="officer-header">
+
+    <div class="officer-header-content">
+
+        <span class="officer-badge">
+            🛡️ AUTHORITY PORTAL
+        </span>
+
+        <h1>
+            Officer Dashboard
+        </h1>
+
+        <p>
+            Monitor, verify and manage reported road issues.
+        </p>
+
+    </div>
+
+    <div class="officer-header-icon">
+        👷
+    </div>
+
+</section>
+
+
+<!-- STATISTICS -->
+<section class="officer-stats">
+
+    <div class="officer-stat-card">
+        <div class="stat-icon">
+            🚧
+        </div>
+
+        <div class="stat-content">
+            <span>Total Reports</span>
+            <strong>{{ total_reports }}</strong>
+        </div>
+    </div>
+
+
+    <div class="officer-stat-card critical-stat">
+        <div class="stat-icon">
+            🔴
+        </div>
+
+        <div class="stat-content">
+            <span>Critical</span>
+            <strong>{{ critical_count }}</strong>
+        </div>
+    </div>
+
+
+    <div class="officer-stat-card high-stat">
+        <div class="stat-icon">
+            🟠
+        </div>
+
+        <div class="stat-content">
+            <span>High Priority</span>
+            <strong>{{ high_count }}</strong>
+        </div>
+    </div>
+
+
+    <div class="officer-stat-card pending-stat">
+        <div class="stat-icon">
+            🟡
+        </div>
+
+        <div class="stat-content">
+            <span>Pending</span>
+            <strong>{{ pending_count }}</strong>
+        </div>
+    </div>
+
+
+    <div class="officer-stat-card">
+        <div class="stat-icon">
+            👥
+        </div>
+
+        <div class="stat-content">
+            <span>Total Verifications</span>
+            <strong>{{ total_verifications }}</strong>
+        </div>
+    </div>
+
+
+    <div class="officer-stat-card verified-stat">
+        <div class="stat-icon">
+            ✅
+        </div>
+
+        <div class="stat-content">
+            <span>Verified Reports</span>
+            <strong>{{ verified_reports }}</strong>
+        </div>
+    </div>
+
+</section>
+
+
+<!-- PRIORITY ALERT -->
+<section class="priority-section">
+
+    <div class="officer-section-heading">
+
+        <div>
+            <span class="section-kicker">
+                ACTION REQUIRED
+            </span>
+
+            <h2>
+                Priority Reports
+            </h2>
+
+            <p>
+                Critical and high-priority potholes requiring attention.
+            </p>
+        </div>
+
+        <a
+            href="/officer/potholes"
+            class="view-all-btn"
+        >
+            View All →
+        </a>
+
+    </div>
+
+
+    {% set priority_reports = potholes
+        |selectattr("priority", "in", ["critical", "high"])
+        |list
+    %}
+
+
+    {% if priority_reports %}
+
+    <div class="priority-report-list">
+
+        {% for pothole in priority_reports[:4] %}
+
+        <div class="priority-report-card">
+
+            <div class="priority-report-main">
+
+                <div class="priority-report-icon">
+                    🚧
+                </div>
+
+                <div>
+
+                    <span class="report-id">
+                        REPORT #{{ pothole.id }}
+                    </span>
+
+                    <h3>
+                        Road Pothole Detected
+                    </h3>
+
+                    <p>
+                        📍 {{ pothole.latitude }}, {{ pothole.longitude }}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="priority-report-meta">
+
+                <span
+                    class="priority-badge {{ pothole.priority|lower }}"
+                >
+                    {{ pothole.priority }}
+                </span>
+
+                <span
+                    class="status-badge {{ pothole.status|lower|replace('_', '-') }}"
+                >
+                    {{ pothole.status|replace('_', ' ') }}
+                </span>
+
+                <a
+                    href="/officer/pothole/{{ pothole.id }}"
+                    class="report-view-btn"
+                >
+                    View
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="priority-empty">
+
+        <div>
+            ✅
+        </div>
+
+        <h3>
+            No urgent reports
+        </h3>
+
+        <p>
+            There are currently no critical or high-priority potholes.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+
+<!-- QUICK ACTIONS -->
+<section class="officer-actions">
+
+    <div class="officer-section-heading">
+
+        <div>
+
+            <span class="section-kicker">
+                MANAGEMENT
+            </span>
+
+            <h2>
+                Quick Actions
+            </h2>
+
+            <p>
+                Access monitoring and report management tools.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="officer-action-grid">
+
+        <a
+            href="/officer/map"
+            class="officer-action-card map-action"
+        >
+
+            <div class="officer-action-icon">
+                🗺️
+            </div>
+
+            <div class="officer-action-content">
+
+                <h3>
+                    Pothole Map
+                </h3>
+
+                <p>
+                    Monitor reported potholes and their locations on the live map.
+                </p>
+
+            </div>
+
+            <span class="action-arrow">
+                →
+            </span>
+
+        </a>
+
+
+        <a
+            href="/officer/potholes"
+            class="officer-action-card reports-action"
+        >
+
+            <div class="officer-action-icon">
+                🚧
+            </div>
+
+            <div class="officer-action-content">
+
+                <h3>
+                    All Potholes
+                </h3>
+
+                <p>
+                    Review reports, AI analysis, verification and repair status.
+                </p>
+
+            </div>
+
+            <span class="action-arrow">
+                →
+            </span>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- RECENT REPORTS -->
+<section class="officer-recent">
+
+    <div class="officer-section-heading">
+
+        <div>
+
+            <span class="section-kicker">
+                LIVE ACTIVITY
+            </span>
+
+            <h2>
+                Recent Reports
+            </h2>
+
+            <p>
+                Latest citizen pothole submissions.
+            </p>
+
+        </div>
+
+        <a
+            href="/officer/potholes"
+            class="view-all-btn"
+        >
+            View All →
+        </a>
+
+    </div>
+
+
+    {% if potholes %}
+
+    <div class="recent-report-list">
+
+        {% for pothole in potholes[:5] %}
+
+        <div class="recent-report-card">
+
+            <div class="recent-report-main">
+
+                <span class="report-id">
+                    #{{ pothole.id }}
+                </span>
+
+                <h3>
+                    🚧 Pothole Report
+                </h3>
+
+                <p>
+                    📍 {{ pothole.latitude }},
+                    {{ pothole.longitude }}
+                </p>
+
+            </div>
+
+
+            <div class="recent-report-right">
+
+                <span
+                    class="priority-badge {{ pothole.priority|lower }}"
+                >
+                    {{ pothole.priority }}
+                </span>
+
+                <span
+                    class="status-badge {{ pothole.status|lower|replace('_', '-') }}"
+                >
+                    {{ pothole.status|replace('_', ' ') }}
+                </span>
+
+                <a
+                    href="/officer/pothole/{{ pothole.id }}"
+                    class="small-view-btn"
+                >
+                    Details
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="no-reports">
+
+        <div>
+            🚧
+        </div>
+
+        <h3>
+            No Reports Yet
+        </h3>
+
+        <p>
+            Citizen pothole reports will appear here.
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+
+</div>
+
+{% endblock %}

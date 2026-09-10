@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="officer-map-page">
+
+    <div class="officer-map-header">
+
+        <div>
+            <span class="officer-badge">
+                AUTHORITY MONITORING
+            </span>
+
+            <h1>🗺️ Pothole Monitoring Map</h1>
+
+            <p>
+                Monitor reported road issues in real time.
+            </p>
+        </div>
+
+        <div class="visible-counter">
+            <span>Visible Reports</span>
+            <strong id="visible-count">0</strong>
+        </div>
+
+    </div>
+
+
+    <!-- FILTERS -->
+
+    <div class="map-filters">
+
+        <select id="priority-filter">
+
+            <option value="all">
+                All Priorities
+            </option>
+
+            <option value="critical">
+                Critical
+            </option>
+
+            <option value="high">
+                High
+            </option>
+
+            <option value="medium">
+                Medium
+            </option>
+
+            <option value="low">
+                Low
+            </option>
+
+        </select>
+
+
+        <select id="status-filter">
+
+            <option value="all">
+                All Status
+            </option>
+
+            <option value="reported">
+                Reported
+            </option>
+
+            <option value="under_review">
+                Under Review
+            </option>
+
+            <option value="in_progress">
+                In Progress
+            </option>
+
+            <option value="resolved">
+                Resolved
+            </option>
+
+        </select>
+
+
+        <button
+            type="button"
+            class="location-button"
+            onclick="locateOfficer()"
+        >
+            📍 My Location
+        </button>
+
+    </div>
+
+
+    <!-- MAP -->
+
+    <div class="officer-map-container">
+
+        <div id="map"></div>
+
+    </div>
+
+
+    <!-- LEGEND -->
+
+    <div class="officer-map-legend">
+
+        <h3>Priority Legend</h3>
+
+        <div class="legend-grid">
+
+            <div class="legend-item">
+                <span class="legend-dot critical"></span>
+                Critical
+            </div>
+
+            <div class="legend-item">
+                <span class="legend-dot high"></span>
+                High
+            </div>
+
+            <div class="legend-item">
+                <span class="legend-dot medium"></span>
+                Medium
+            </div>
+
+            <div class="legend-item">
+                <span class="legend-dot low"></span>
+                Low
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+
+<script src="/static/js/officer-map.js"></script>
+
+{% endblock %}

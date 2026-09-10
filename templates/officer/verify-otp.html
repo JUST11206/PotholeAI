@@ -1,0 +1,43 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <h1>🛡️ Verify Officer Account</h1>
+
+        <p>
+            Enter the OTP sent to your email.
+        </p>
+
+        <form
+            action="/auth/officer/verify-otp"
+            method="POST"
+        >
+
+            <input
+                type="text"
+                name="otp"
+                placeholder="Enter OTP"
+                maxlength="6"
+                required
+            >
+
+            <button type="submit">
+                Verify OTP
+            </button>
+
+        </form>
+
+        <p>
+            OTP verification is required to create your officer account.
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

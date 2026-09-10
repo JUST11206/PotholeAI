@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="officer-dashboard">
+
+    <section class="officer-header">
+
+        <div>
+
+            <span class="officer-badge">
+                AUTHORITY PORTAL
+            </span>
+
+            <h1>
+                All Pothole Reports
+            </h1>
+
+            <p>
+                Review and manage citizen road reports.
+            </p>
+
+        </div>
+
+        <div class="officer-header-icon">
+            🚧
+        </div>
+
+    </section>
+
+
+    <section class="officer-recent">
+
+        {% if potholes %}
+
+        <div class="recent-report-list">
+
+            {% for pothole in potholes %}
+
+            <div class="recent-report-card">
+
+                <div>
+
+                    <span class="report-id">
+                        #{{ pothole.id }}
+                    </span>
+
+                    <h3>
+                        🚧 Pothole Report
+                    </h3>
+
+                    <p>
+                        📍
+                        {{ pothole.latitude }},
+                        {{ pothole.longitude }}
+                    </p>
+
+                    <p>
+                        AI Confidence:
+                        {{ (pothole.confidence * 100)|round(1) }}%
+                    </p>
+
+                    <p>
+                        Priority Score:
+                        {{ pothole.priority_score }}
+                    </p>
+
+                </div>
+
+
+                <div class="recent-report-right">
+
+                    <span
+                        class="priority-badge
+                        {{ pothole.priority|lower }}"
+                    >
+                        {{ pothole.priority }}
+                    </span>
+
+                    <span
+                        class="status-badge
+                        {{ pothole.status|lower|replace('_', '-') }}"
+                    >
+                        {{ pothole.status }}
+                    </span>
+
+                    <br><br>
+
+                    <a
+                        href="/officer/pothole/{{ pothole.id }}"
+                        class="view-all-btn"
+                    >
+                        View Details →
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="no-reports">
+
+            <div>
+                🚧
+            </div>
+
+            <h3>
+                No Reports Yet
+            </h3>
+
+            <p>
+                Citizen pothole reports will appear here.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+</div>
+
+{% endblock %}

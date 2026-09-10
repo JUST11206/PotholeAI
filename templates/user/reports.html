@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <h1>🚧 My Pothole Reports</h1>
+
+    {% if potholes %}
+
+        <div class="reports-grid">
+
+            {% for pothole in potholes %}
+
+                <div class="auth-card">
+
+                    <h2>
+                        🚧 Pothole #{{ pothole.id }}
+                    </h2>
+
+                    <p>
+                        <strong>Severity:</strong>
+                        {{ pothole.severity or "N/A" }}
+                    </p>
+
+                    <p>
+                        <strong>Priority:</strong>
+                        {{ pothole.priority or "N/A" }}
+                    </p>
+
+                    <p>
+                        <strong>Priority Score:</strong>
+                        {{ pothole.priority_score if pothole.priority_score is not none else "N/A" }}
+                    </p>
+
+                    <p>
+                        <strong>Confidence:</strong>
+
+                        {% if pothole.confidence is not none %}
+                            {{ "%.2f"|format(pothole.confidence * 100) }}%
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </p>
+
+
+                    <!-- ================================= -->
+                    <!-- REPAIR STATUS -->
+                    <!-- ================================= -->
+
+                    <p>
+                        <strong>Repair Status:</strong>
+
+                        {% if pothole.status == "reported" %}
+
+                            🟠 <strong>Reported</strong>
+
+                        {% elif pothole.status == "under_review" %}
+
+                            🟡 <strong>Under Review</strong>
+
+                        {% elif pothole.status == "in_progress" %}
+
+                            🔵 <strong>Repair In Progress</strong>
+
+                        {% elif pothole.status == "resolved" %}
+
+                            🟢 <strong>Resolved</strong>
+
+                        {% else %}
+
+                            ⚪ <strong>{{ pothole.status or "Unknown" }}</strong>
+
+                        {% endif %}
+
+                    </p>
+
+
+                    <p>
+                        <strong>Location:</strong><br>
+                        {{ pothole.latitude }},
+                        {{ pothole.longitude }}
+                    </p>
+
+
+                    {% if pothole.description %}
+
+                        <p>
+                            <strong>AI Description:</strong><br>
+                            {{ pothole.description }}
+                        </p>
+
+                    {% endif %}
+
+
+                    <p>
+                        <strong>Reported:</strong>
+                        {{ pothole.created_at }}
+                    </p>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="auth-card">
+
+            <h2>No Reports Yet</h2>
+
+            <p>
+                You haven't reported any potholes yet.
+            </p>
+
+            <a href="/user/report">
+                🚧 Report a Pothole
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

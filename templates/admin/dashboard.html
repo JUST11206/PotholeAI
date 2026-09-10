@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <h1>🛡️ Admin Dashboard</h1>
+
+  <div class="stats">
+
+    <div>
+        <h2>{{ users }}</h2>
+        <p>Users</p>
+    </div>
+
+    <div>
+        <h2>{{ potholes }}</h2>
+        <p>Potholes</p>
+    </div>
+
+    <div>
+        <h2>{{ critical }}</h2>
+        <p>Critical</p>
+    </div>
+
+    <div>
+        <h2>{{ pending }}</h2>
+        <p>Pending</p>
+    </div>
+
+    <div>
+        <h2>{{ resolved }}</h2>
+        <p>Resolved</p>
+    </div>
+
+    <div>
+        <h2>{{ verifications }}</h2>
+        <p>Verifications</p>
+    </div>
+
+</div>
+
+    <div class="dashboard-grid">
+
+        <a href="/admin/users">
+            👥
+            <h3>Manage Users</h3>
+        </a>
+
+        <a href="/admin/potholes">
+            🚧
+            <h3>Manage Potholes</h3>
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

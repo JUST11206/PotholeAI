@@ -1,0 +1,8 @@
+Flask
+Flask-SQLAlchemy
+PyMySQL
+python-dotenv
+firebase-admin
+requests
+Pillow
+gunicorn

@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="details-card">
+
+    <h1>
+        🚧 Pothole #{{ pothole.id }}
+    </h1>
+
+    <img
+        src="/{{ pothole.image_path }}"
+        alt="Pothole"
+        class="pothole-image"
+    >
+
+    <div class="detail">
+        <strong>Severity:</strong>
+        {{ pothole.severity }}
+    </div>
+
+    <div class="detail">
+        <strong>Priority:</strong>
+        {{ pothole.priority }}
+    </div>
+
+    <div class="detail">
+        <strong>Priority Score:</strong>
+        {{ pothole.priority_score }}
+    </div>
+
+    <div class="detail">
+        <strong>AI Confidence:</strong>
+        {{ (pothole.confidence * 100)|round(1) }}%
+    </div>
+
+    <div class="detail">
+    <strong>Citizen Verifications:</strong>
+
+    👥 {{ verification_count }}
+</div>
+
+<div class="detail">
+
+    <strong>Community Verification:</strong>
+
+    {% if verification_count >= 2 %}
+
+        ✅ Community Verified
+
+    {% elif verification_count == 1 %}
+
+        🟡 1 Citizen Verified
+
+    {% else %}
+
+        ⚪ Not Yet Verified
+
+    {% endif %}
+
+</div>
+    <div class="detail">
+        <strong>Latitude:</strong>
+        {{ pothole.latitude }}
+    </div>
+
+    <div class="detail">
+        <strong>Longitude:</strong>
+        {{ pothole.longitude }}
+    </div>
+
+    <div class="detail">
+        <strong>Current Status:</strong>
+
+        <span id="current-status">
+            {{ pothole.status }}
+        </span>
+    </div>
+
+    {% if pothole.description %}
+
+    <div class="detail">
+
+        <strong>AI Description:</strong>
+
+        <p>
+            {{ pothole.description }}
+        </p>
+
+    </div>
+
+    {% endif %}
+
+    <br>
+
+    <h3>
+        Update Status
+    </h3>
+
+    <select
+        id="status-select"
+        style="
+            width:100%;
+            padding:12px;
+            margin-top:10px;
+            border:1px solid #ddd;
+            border-radius:8px;
+        "
+    >
+
+        <option value="reported"
+            {% if pothole.status == "reported" %}selected{% endif %}>
+            Reported
+        </option>
+
+        <option value="under_review"
+            {% if pothole.status == "under_review" %}selected{% endif %}>
+            Under Review
+        </option>
+
+        <option value="in_progress"
+            {% if pothole.status == "in_progress" %}selected{% endif %}>
+            In Progress
+        </option>
+
+        <option value="resolved"
+            {% if pothole.status == "resolved" %}selected{% endif %}>
+            Resolved
+        </option>
+
+    </select>
+
+    <br><br>
+
+    <button
+        type="button"
+        onclick="updateStatus()"
+    >
+        Update Status
+    </button>
+
+    <br><br>
+
+    <a
+        href="/officer/map"
+        style="text-decoration:none;"
+    >
+        ← Back to Map
+    </a>
+
+</div>
+
+
+<script>
+
+async function updateStatus() {
+
+    const status =
+        document.getElementById(
+            "status-select"
+        ).value;
+
+    try {
+
+        const response = await fetch(
+            "/officer/pothole/{{ pothole.id }}/status",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+                    status: status
+                })
+            }
+        );
+
+        const result =
+            await response.json();
+
+        if (result.success) {
+
+            document.getElementById(
+                "current-status"
+            ).innerText = result.status;
+
+            alert(
+                "Status updated successfully!"
+            );
+
+        } else {
+
+            alert(result.message);
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Server error while updating status."
+        );
+    }
+}
+
+</script>
+
+{% endblock %}

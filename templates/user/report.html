@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="dashboard">
+
+
+<div class="auth-card">
+
+    <h1>🚧 Report a Pothole</h1>
+
+    <p>
+        Take a live photo of the pothole using your camera.
+    </p>
+
+    <!-- Camera -->
+    <video
+        id="camera"
+        autoplay
+        playsinline
+        style="width:100%; max-width:500px; border-radius:12px;"
+    ></video>
+
+    <br><br>
+
+    <!-- Camera buttons -->
+
+    <button
+        type="button"
+        onclick="startCamera()"
+    >
+        📷 Open Camera
+    </button>
+
+    <button
+        type="button"
+        onclick="captureImage()"
+    >
+        📸 Capture Photo
+    </button>
+
+    <br><br>
+
+    <!-- Captured image preview -->
+
+    <img
+        id="preview"
+        style="
+            display:none;
+            width:100%;
+            max-width:500px;
+            border-radius:12px;
+        "
+    >
+
+    <canvas
+        id="canvas"
+        style="display:none;"
+    ></canvas>
+
+    <br>
+
+    <!-- GPS -->
+
+    <button
+        type="button"
+        onclick="getLocation()"
+    >
+        📍 Get My Location
+    </button>
+
+    <p id="location">
+        Location not detected
+    </p>
+
+    <br>
+
+    <!-- Submit -->
+
+    <button
+        type="button"
+        onclick="submitReport()"
+    >
+        🚨 Submit Pothole Report
+    </button>
+
+</div>
+
+
+</div>
+
+<script src="{{ url_for('static', filename='js/gps.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/camera.js') }}"></script>
+
+{% endblock %}

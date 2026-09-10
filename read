@@ -1,0 +1,820 @@
+# 🚧 AI Pothole Detection & Smart Road Monitoring PWA
+
+An AI-powered **Progressive Web App (PWA)** for detecting, reporting, prioritizing, and monitoring potholes using **AI, GPS, interactive maps, Firebase Authentication, and Flask**.
+
+The platform connects **citizens and road authorities** through a centralized system where potholes can be detected, geographically located, assigned a priority level, and monitored until repair.
+
+---
+
+# 🎯 Problem Statement
+
+Potholes are often reported manually or remain unnoticed for long periods, leading to:
+
+* 🚗 Vehicle damage
+* 🏍️ Road accidents
+* 🚑 Safety risks
+* ⏳ Delayed maintenance
+* 📍 Difficulty identifying exact locations
+* 🔁 Duplicate complaints
+* ❌ No proper repair tracking
+
+Our solution provides an **AI-powered digital pothole reporting and monitoring system**.
+
+---
+
+# 💡 Proposed Solution
+
+The PWA allows citizens to:
+
+```text
+Capture Pothole
+       ↓
+AI Detection
+       ↓
+Get GPS Location
+       ↓
+Calculate Severity
+       ↓
+Generate Report
+       ↓
+Show on Authority Map
+       ↓
+Assign Priority
+       ↓
+Repair Tracking
+```
+
+Authorities can view potholes on an interactive map and prioritize them according to their severity and importance.
+
+---
+
+# 🌟 Key Features
+
+## 🔐 Firebase Authentication
+
+Authentication is handled using **Firebase Authentication**.
+
+The system has three different user roles:
+
+```text
+                 Authentication
+                       │
+          ┌────────────┼────────────┐
+          ↓            ↓            ↓
+        User        Officer        Admin
+          │            │            │
+       Citizen      Authority     System
+```
+
+### 👤 User Login
+
+Citizens can:
+
+* Create an account
+* Login using email
+* Verify signup using OTP
+* Report potholes
+* Capture/upload pothole images
+* Share GPS location
+* View their submitted reports
+* Track report status
+
+### 👷 Officer Login
+
+Officers can:
+
+* Login through the officer portal
+* View reported potholes
+* See potholes on the map
+* Click/tap a pothole marker
+* View complete pothole details
+* View severity
+* View priority
+* Verify reports
+* Track repair status
+
+### 🛡️ Admin Login
+
+Admins have higher-level access to:
+
+* Manage users
+* Manage officers
+* Monitor all pothole reports
+* Manage reports
+* View analytics
+* Control system data
+* Manage report/verification status
+
+---
+
+# 📧 Email + OTP Signup
+
+New users will complete signup using email verification/OTP.
+
+```text
+Enter Email
+    ↓
+Signup Request
+    ↓
+OTP Sent
+    ↓
+Enter OTP
+    ↓
+OTP Verified
+    ↓
+Account Created
+    ↓
+Login
+```
+
+Firebase Authentication handles the authentication process.
+
+---
+
+# 📷 AI Pothole Detection
+
+Users can capture a pothole image using the device camera.
+
+The image is sent to the Flask backend for AI analysis.
+
+```text
+Camera
+   ↓
+Image
+   ↓
+Flask API
+   ↓
+AI Detection
+   ↓
+Pothole?
+   ↓
+Yes
+   ↓
+Severity + Confidence
+```
+
+The detection system can provide:
+
+* Pothole detection
+* Confidence score
+* Severity estimation
+* Detection result
+
+---
+
+# 📍 Automatic GPS Location
+
+When a user reports a pothole, the application can request the device's GPS location.
+
+Example:
+
+```json
+{
+  "latitude": 28.9845,
+  "longitude": 77.7064
+}
+```
+
+This allows authorities to identify the exact location of the pothole.
+
+---
+
+# 🗺️ Officer Pothole Map
+
+One of the main features of the system is the **Officer Map Dashboard**.
+
+Officers can see reported potholes directly on an interactive map.
+
+```text
+                 OFFICER MAP
+
+       🔴 Pothole
+       
+                    🟡 Pothole
+
+             🟢 Pothole
+
+                         🔴 Pothole
+```
+
+Different markers can represent different priority levels.
+
+### 🔴 Critical / High Priority
+
+Dangerous potholes requiring urgent attention.
+
+### 🟠 Medium Priority
+
+Potholes that require maintenance but are not immediately critical.
+
+### 🟢 Low Priority
+
+Minor potholes that can be scheduled for later repair.
+
+---
+
+# 📌 Pothole Details
+
+When an officer taps/clicks a pothole marker, a details panel opens.
+
+Example:
+
+```text
+┌─────────────────────────────┐
+│       Pothole Details       │
+├─────────────────────────────┤
+│ Severity:      HIGH         │
+│ Priority:      CRITICAL     │
+│ Confidence:    94%          │
+│ Reports:       12           │
+│ Status:        VERIFIED     │
+│                             │
+│ Latitude:      28.9845      │
+│ Longitude:     77.7064      │
+│                             │
+│ Reported:      08 Sep 2026  │
+│                             │
+│ [View Image]                │
+│ [Update Status]             │
+└─────────────────────────────┘
+```
+
+---
+
+# 🚨 Priority-Based Pothole Management
+
+The system doesn't treat every pothole equally.
+
+A **priority score** can be calculated using multiple factors:
+
+```text
+Priority Score
+      │
+      ├── Pothole Severity
+      ├── Number of Reports
+      ├── Road Importance
+      ├── Traffic Level
+      ├── Location
+      └── Verification
+```
+
+Example:
+
+```text
+Severity       → 40%
+Traffic        → 20%
+Reports        → 15%
+Road Importance→ 15%
+Verification   → 10%
+```
+
+The final score can be converted into:
+
+| Priority    | Meaning          |
+| ----------- | ---------------- |
+| 🔴 Critical | Immediate action |
+| 🟠 High     | Urgent repair    |
+| 🟡 Medium   | Schedule repair  |
+| 🟢 Low      | Low urgency      |
+
+---
+
+# 👥 Duplicate & Crowd Verification
+
+Multiple citizens may report the same pothole.
+
+The system can compare:
+
+* GPS coordinates
+* Distance between reports
+* Time
+* Image information
+
+Example:
+
+```text
+User A ──┐
+User B ──┼──> Same Location
+User C ──┘
+              ↓
+       Crowd Verified
+              ↓
+       Higher Priority
+```
+
+This helps reduce duplicate complaints while increasing confidence in genuine reports.
+
+---
+
+# 🔧 Repair Tracking
+
+Officers can update the status of a pothole:
+
+```text
+Reported
+   ↓
+Under Verification
+   ↓
+Verified
+   ↓
+Assigned
+   ↓
+In Repair
+   ↓
+Repaired
+```
+
+Citizens can see the progress of their reports.
+
+---
+
+# 👤 User Dashboard
+
+Users can view:
+
+* Total reports
+* Pending reports
+* Verified reports
+* Repaired potholes
+* Report history
+* Current report status
+
+Example:
+
+```text
+My Reports
+
+Total       12
+Pending      3
+Verified     5
+Repaired     4
+```
+
+---
+
+# 👷 Officer Dashboard
+
+Officers can view:
+
+```text
+Total Potholes        1,245
+Critical                82
+High                   213
+Medium                 456
+Low                    494
+```
+
+They can also:
+
+* Filter by priority
+* Filter by status
+* Search location
+* Open pothole details
+* Verify reports
+* Update repair status
+
+---
+
+# 🛡️ Admin Dashboard
+
+Admin has complete system-level access.
+
+### Admin can manage:
+
+* Users
+* Officers
+* Reports
+* Potholes
+* Verification
+* Repair status
+* System analytics
+
+Admin can also control which accounts have **User, Officer, or Admin** privileges.
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                         ┌───────────────┐
+                         │    USER       │
+                         │   Mobile PWA  │
+                         └───────┬───────┘
+                                 │
+                    Camera + GPS + Report
+                                 │
+                                 ▼
+                    ┌────────────────────┐
+                    │    PWA Frontend    │
+                    │  HTML/CSS/JS       │
+                    └─────────┬──────────┘
+                              │
+                              ▼
+                    ┌────────────────────┐
+                    │    Flask Backend   │
+                    │     Python API     │
+                    └─────────┬──────────┘
+                              │
+                ┌─────────────┼─────────────┐
+                │             │             │
+                ▼             ▼             ▼
+           AI Detection    Database      Maps API
+                │             │
+                ▼             ▼
+           Severity       Reports
+           Confidence     Locations
+                          Status
+                              │
+                              ▼
+                    ┌────────────────────┐
+                    │ Officer Dashboard  │
+                    │   Map + Priority   │
+                    └────────────────────┘
+                              │
+                              ▼
+                    ┌────────────────────┐
+                    │  Admin Dashboard   │
+                    └────────────────────┘
+```
+
+---
+
+# 🛠️ Technology Stack
+
+## Frontend
+
+* HTML5
+* CSS3
+* JavaScript
+* Progressive Web App
+* Browser Camera API
+* Geolocation API
+
+## Backend
+
+* Python
+* Flask
+* REST API
+
+## Authentication
+
+* Firebase Authentication
+* Email Authentication
+* OTP Verification
+* Role-based access
+
+## Database
+
+* TiDB / MySQL
+
+Stores:
+
+* Users
+* Potholes
+* Reports
+* GPS coordinates
+* Severity
+* Priority
+* Verification
+* Repair status
+
+## AI
+
+Possible AI integration:
+
+* Pothole detection model
+* Computer Vision
+* YOLO
+* Gemini Vision API
+
+## Maps
+
+* Leaflet
+* OpenStreetMap
+* Google Maps API
+
+---
+
+# 📂 Project Structure
+
+```text
+pothole-pwa/
+│
+├── app.py
+├── requirements.txt
+├── .env
+├── README.md
+│
+├── templates/
+│   ├── index.html
+│   ├── login.html
+│   ├── signup.html
+│   ├── verify-otp.html
+│   ├── user-dashboard.html
+│   ├── officer-dashboard.html
+│   ├── officer-map.html
+│   └── admin-dashboard.html
+│
+├── static/
+│   ├── css/
+│   │   ├── style.css
+│   │   ├── auth.css
+│   │   └── dashboard.css
+│   │
+│   ├── js/
+│   │   ├── app.js
+│   │   ├── firebase-auth.js
+│   │   ├── camera.js
+│   │   ├── gps.js
+│   │   ├── map.js
+│   │   └── officer.js
+│   │
+│   ├── icons/
+│   │   ├── icon-192.png
+│   │   └── icon-512.png
+│   │
+│   ├── manifest.json
+│   └── service-worker.js
+│
+├── uploads/
+│
+└── models/
+    └── pothole_model.pt
+```
+
+---
+
+# 🔐 Role-Based Access
+
+The application should enforce role-based authorization.
+
+```text
+User
+ │
+ ├── Report Pothole
+ ├── View Own Reports
+ └── Track Status
+
+
+Officer
+ │
+ ├── View Potholes
+ ├── Map
+ ├── Verify Reports
+ ├── View Details
+ └── Update Repair Status
+
+
+Admin
+ │
+ ├── Manage Users
+ ├── Manage Officers
+ ├── Manage Reports
+ ├── Analytics
+ └── Full System Access
+```
+
+Authentication and authorization should be separated:
+
+```text
+Firebase
+   ↓
+Who are you?
+   ↓
+Backend Database
+   ↓
+What role do you have?
+   ↓
+User / Officer / Admin
+```
+
+---
+
+# ⚙️ Installation
+
+## 1. Clone Repository
+
+```bash
+git clone https://github.com/your-username/pothole-pwa.git
+cd pothole-pwa
+```
+
+## 2. Create Virtual Environment
+
+### Windows
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### Linux/macOS
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+## 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# 🔑 Environment Variables
+
+Create `.env`:
+
+```env
+SECRET_KEY=your_secret_key
+
+DATABASE_URL=your_database_url
+
+FIREBASE_PROJECT_ID=your_project_id
+FIREBASE_PRIVATE_KEY=your_private_key
+FIREBASE_CLIENT_EMAIL=your_client_email
+
+AI_API_KEY=your_ai_api_key
+
+MAP_API_KEY=your_map_api_key
+```
+
+Never upload `.env` to GitHub.
+
+---
+
+# ▶️ Run Locally
+
+```bash
+python app.py
+```
+
+Open:
+
+```text
+http://127.0.0.1:5000
+```
+
+For testing with other devices on the same Wi-Fi:
+
+```python
+app.run(host="0.0.0.0", port=5000, debug=True)
+```
+
+Then access it using:
+
+```text
+http://YOUR-PC-IP:5000
+```
+
+---
+
+# 📱 PWA
+
+The application uses:
+
+```text
+manifest.json
+service-worker.js
+```
+
+This allows the website to provide an app-like experience.
+
+PWA features:
+
+* Installable
+* Responsive
+* Mobile-first
+* Camera support
+* GPS support
+* Offline caching
+* App-like interface
+
+---
+
+# 🔄 Complete Workflow
+
+```text
+                 CITIZEN
+                    │
+                    ▼
+              Open PWA
+                    │
+                    ▼
+              Login / Signup
+                    │
+                    ▼
+                OTP Verify
+                    │
+                    ▼
+            Capture Pothole
+                    │
+                    ▼
+              Get GPS Data
+                    │
+                    ▼
+             AI Detection
+                    │
+                    ▼
+          Severity Calculation
+                    │
+                    ▼
+            Priority Score
+                    │
+                    ▼
+             Save Report
+                    │
+                    ▼
+          ┌─────────────────┐
+          │ Officer Map     │
+          └────────┬────────┘
+                   │
+                   ▼
+          Officer taps marker
+                   │
+                   ▼
+          View Pothole Details
+                   │
+                   ▼
+             Verify Report
+                   │
+                   ▼
+            Assign Priority
+                   │
+                   ▼
+             Repair Process
+                   │
+                   ▼
+                Repaired
+```
+
+---
+
+# 🚀 Future Improvements
+
+* Real-time pothole detection
+* Road-condition heatmaps
+* AI-based accident-risk prediction
+* Traffic-density integration
+* Automatic duplicate detection
+* Authority notifications
+* SMS/email notifications
+* Repair-image verification
+* City-wide analytics
+* Predictive road maintenance
+* Multi-city support
+
+---
+
+# 🏆 Why This Project?
+
+This project goes beyond simple pothole detection.
+
+It creates a complete **AI-powered road-management ecosystem**:
+
+```text
+       DETECT
+          ↓
+       LOCATE
+          ↓
+       VERIFY
+          ↓
+      PRIORITIZE
+          ↓
+        REPORT
+          ↓
+        REPAIR
+          ↓
+        TRACK
+```
+
+### Core USP
+
+**AI Detection + GPS + Crowd Verification + Priority-Based Mapping + Authority Repair Tracking + PWA**
+
+This makes the system useful for both **citizens and road-maintenance authorities**.
+
+---
+
+# 👨‍💻 Technology Summary
+
+| Component           | Technology               |
+| ------------------- | ------------------------ |
+| Frontend            | HTML, CSS, JavaScript    |
+| Backend             | Python, Flask            |
+| Authentication      | Firebase                 |
+| Signup Verification | Email + OTP              |
+| Database            | TiDB / MySQL             |
+| AI                  | Computer Vision / AI API |
+| Location            | Browser GPS              |
+| Map                 | Leaflet / OpenStreetMap  |
+| Application         | PWA                      |
+| Deployment          | Render / Railway / Cloud |
+
+---
+
+# 📄 License
+
+This project is developed for **educational, hackathon, and research purposes**.

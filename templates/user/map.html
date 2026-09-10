@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="pothole-map-page">
+
+    <div class="map-header">
+        <div>
+            <span class="map-badge">ROAD SAFETY MAP</span>
+
+            <h1>🗺️ Pothole Map</h1>
+
+            <p>
+                View reported potholes and road issues around you.
+            </p>
+        </div>
+    </div>
+
+
+    <div class="map-card">
+
+        <div id="pothole-map"></div>
+
+        <button
+            id="locate-btn"
+            class="locate-button"
+            onclick="locateUser()"
+        >
+            📍 My Location
+        </button>
+
+    </div>
+
+
+    <div class="map-legend">
+
+        <h3>Priority</h3>
+
+        <div class="legend-items">
+
+            <div>
+                <span class="legend-dot critical"></span>
+                Critical
+            </div>
+
+            <div>
+                <span class="legend-dot high"></span>
+                High
+            </div>
+
+            <div>
+                <span class="legend-dot medium"></span>
+                Medium
+            </div>
+
+            <div>
+                <span class="legend-dot low"></span>
+                Low
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Leaflet -->
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+<script
+    src="{{ url_for('static', filename='js/map.js') }}">
+</script>
+
+{% endblock %}

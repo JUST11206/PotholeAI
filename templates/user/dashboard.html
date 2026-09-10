@@ -1,0 +1,302 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="citizen-dashboard">
+
+    <!-- HEADER -->
+    <section class="dashboard-header">
+
+        <div class="header-content">
+
+            <span class="header-badge">
+                CITIZEN PORTAL
+            </span>
+
+            <h1>
+                Welcome, Citizen 👋
+            </h1>
+
+            <p>
+                Help make roads safer by reporting potholes
+                and tracking your contributions.
+            </p>
+
+        </div>
+
+        <div class="header-icon">
+            🚧
+        </div>
+
+    </section>
+
+
+    <!-- QUICK ACTIONS -->
+    <section class="quick-actions">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="citizen-section-kicker">
+                    GET STARTED
+                </span>
+
+                <h2>
+                    Quick Actions
+                </h2>
+
+                <p>
+                    Report, track and explore road issues.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="action-grid">
+
+            <!-- REPORT -->
+            <a
+                href="/user/report"
+                class="action-card primary-action"
+            >
+
+                <div class="action-icon">
+                    📷
+                </div>
+
+                <div class="action-content">
+
+                    <span class="action-label">
+                        MOST IMPORTANT
+                    </span>
+
+                    <h3>
+                        Report Pothole
+                    </h3>
+
+                    <p>
+                        Capture a pothole and share its
+                        exact location.
+                    </p>
+
+                </div>
+
+                <span class="action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- MY REPORTS -->
+            <a
+                href="/user/reports"
+                class="action-card"
+            >
+
+                <div class="action-icon">
+                    📋
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        My Reports
+                    </h3>
+
+                    <p>
+                        Track your submitted pothole
+                        reports and their status.
+                    </p>
+
+                </div>
+
+                <span class="action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- MAP -->
+            <a
+                href="/user/map"
+                class="action-card"
+            >
+
+                <div class="action-icon">
+                    🗺️
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        Live Pothole Map
+                    </h3>
+
+                    <p>
+                        Explore reported potholes and
+                        road issues around you.
+                    </p>
+
+                </div>
+
+                <span class="action-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <!-- LOGOUT -->
+            <a
+                href="/auth/logout"
+                class="action-card logout-action"
+            >
+
+                <div class="action-icon">
+                    🚪
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        Logout
+                    </h3>
+
+                    <p>
+                        Sign out securely from your account.
+                    </p>
+
+                </div>
+
+                <span class="action-arrow">
+                    →
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+    <section class="how-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="citizen-section-kicker">
+                    SIMPLE PROCESS
+                </span>
+
+                <h2>
+                    How It Works
+                </h2>
+
+                <p>
+                    Report a road problem in three simple steps.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <div class="step-content">
+
+                    <h3>
+                        Capture
+                    </h3>
+
+                    <p>
+                        Take a live photo of the pothole.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <div class="step-content">
+
+                    <h3>
+                        Locate
+                    </h3>
+
+                    <p>
+                        Share your current GPS location.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <div class="step-content">
+
+                    <h3>
+                        Report
+                    </h3>
+
+                    <p>
+                        AI analyzes and prioritizes the issue.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TRUST / INFO -->
+    <div class="dashboard-tip">
+
+        <div class="tip-icon">
+            🛡️
+        </div>
+
+        <div>
+
+            <strong>
+                Every report matters.
+            </strong>
+
+            <p>
+                Your contribution helps authorities identify
+                and repair damaged roads faster.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

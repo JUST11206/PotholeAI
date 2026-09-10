@@ -1,0 +1,73 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <h1>🛡️ Officer Registration</h1>
+
+        <p>
+            Register as an authorized road monitoring officer.
+        </p>
+
+        <form
+            action="/auth/officer/send-otp"
+            method="POST"
+        >
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                required
+            >
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Official Email Address"
+                required
+            >
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                minlength="6"
+                required
+            >
+
+            <input
+                type="password"
+                name="officer_code"
+                placeholder="Officer Registration Code"
+                required
+            >
+
+            <button type="submit">
+                Send OTP
+            </button>
+
+        </form>
+
+        <p>
+            Already registered?
+            <a href="/auth/officer/login">
+                Officer Login
+            </a>
+        </p>
+
+        <p>
+            <a href="/auth/login">
+                ← Citizen Login
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}
